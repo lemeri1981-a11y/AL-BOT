@@ -8,43 +8,53 @@
 
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen" class="loginScreen">
   <div class="loginBox">
     <h1>AI-BOT</h1>
-    <button onclick="enterApp()">Shqip</button>
-    <button onclick="enterApp()">English</button>
+    <p>Zgjidh gjuhën</p>
+    <button onclick="enterApp()">🇦🇱 Shqip</button>
+    <button onclick="enterApp()">🇬🇧 English</button>
   </div>
 </div>
 
+<!-- HEADER -->
 <div class="header">
-  <div>AI-BOT</div>
-  <div>
+  <div class="logo">
+    <img src="logo.png" alt="AI-BOT Logo">
+    <span>AI-BOT</span>
+  </div>
+  <div class="actions">
+    <button onclick="newChat()">+ New Chat</button>
     <button>Login</button>
   </div>
 </div>
 
+<!-- MAIN LAYOUT -->
 <div class="layout">
 
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <h3>Chats</h3>
     <div id="history"></div>
   </div>
 
+  <!-- CHAT AREA -->
   <div class="chat">
     <div id="messages" class="messages"></div>
-
     <div class="inputArea">
-      <input id="input" placeholder="Shkruaj..." />
+      <input id="input" placeholder="Shkruaj mesazh..." />
       <button onclick="send()">➤</button>
     </div>
   </div>
 
+  <!-- MODULES -->
   <div class="modules">
-    <div class="card">Përkthime</div>
-    <div class="card">Lajme</div>
-    <div class="card">Sociale</div>
-    <div class="card">Përmbledhje</div>
-    <div class="card">Asistent</div>
+    <div class="card">🌍 Përkthime</div>
+    <div class="card">📰 Lajme</div>
+    <div class="card">📱 Sociale</div>
+    <div class="card">📄 Përmbledhje</div>
+    <div class="card">👤 Asistent</div>
   </div>
 
 </div>
