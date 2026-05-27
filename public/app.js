@@ -1,14 +1,22 @@
 function enterApp(){
-document.getElementById("loginScreen").style.display="none";
+  document.getElementById("loginScreen").style.display="none";
 }
 
-function send(){
-const input=document.getElementById("input");
-const msg=input.value;
-if(!msg) return;
+function newChat(){
+  document.getElementById("messages").innerHTML="";
+}
 
-document.getElementById("messages").innerHTML +=
-"<div class='msg user'>"+msg+"</div>";
+async function send(){
+  const input=document.getElementById("input");
+  const text=input.value.trim();
+  if(!text) return;
 
-input.value="";
+  document.getElementById("messages").innerHTML +=
+    `<div class='msg user'>${text}</div>`;
+
+  // demo AI response
+  document.getElementById("messages").innerHTML +=
+    `<div class='msg ai'>Demo AI reply</div>`;
+
+  input.value="";
 }
