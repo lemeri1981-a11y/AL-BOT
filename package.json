@@ -1,7 +1,6 @@
 {
   "name": "ai-bot",
   "version": "1.0.0",
-  "description": "AI-BOT project",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
