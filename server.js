@@ -8,10 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔥 SERVE FRONTEND (index.html nga /public)
+// 🔥 SERVE FRONTEND
 app.use(express.static("public"));
 
-// 🔥 HOME ROUTE (siguri shtesë)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -21,7 +20,7 @@ app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
 
-    console.log("📩 Message:", userMessage);
+    console.log("📩 USER:", userMessage);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -30,7 +29,7 @@ app.post("/api/chat", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "openai/gpt-3.5-turbo",
+        model: "meta-llama/llama-3.1-8b-instruct:free",
         messages: [
           { role: "user", content: userMessage }
         ]
@@ -39,8 +38,12 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
+    // 🔥 LOG REAL RESPONSE (vetëm për kontroll)
+    console.log("🤖 OPENROUTER RESPONSE:", JSON.stringify(data));
+
     const reply =
       data?.choices?.[0]?.message?.content ||
+      data?.error?.message ||
       "Nuk mora përgjigje nga AI.";
 
     res.json({ reply });
@@ -51,7 +54,7 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// 🔥 PORT RAILWAY
+// 🔥 PORT (RAILWAY SAFE)
 const PORT = process.env.PORT;
 
 app.listen(PORT, "0.0.0.0", () => {
