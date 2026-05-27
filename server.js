@@ -8,15 +8,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔥 STATIC FRONTEND
+// 🔥 FRONTEND
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// 🔥 DEBUG (kontrollon në Railway nëse key ekziston)
-console.log("🔑 OPENROUTER KEY LOADED:", process.env.OPENROUTER_API_KEY ? "YES" : "NO");
+// 🔥 DEBUG STARTUP
+console.log("🚀 Server starting...");
+console.log("🔑 OPENROUTER KEY EXISTS:", !!process.env.OPENROUTER_API_KEY);
+console.log("🔑 KEY PREVIEW:", process.env.OPENROUTER_API_KEY?.slice(0, 8));
 
 // 🔥 CHAT API
 app.post("/api/chat", async (req, res) => {
@@ -24,28 +26,35 @@ app.post("/api/chat", async (req, res) => {
     const userMessage = req.body.message;
 
     if (!process.env.OPENROUTER_API_KEY) {
-      return res.status(500).json({ reply: "Missing OPENROUTER_API_KEY in Railway Variables" });
+      return res.status(500).json({
+        reply: "❌ OPENROUTER_API_KEY mungon në Railway Variables"
+      });
     }
+
+    const payload = {
+      model: "openai/gpt-3.5-turbo",
+      messages: [
+        { role: "user", content: userMessage }
+      ]
+    };
+
+    console.log("📩 Sending request to OpenRouter...");
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY.trim()}`,
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://localhost",
+        "HTTP-Referer": "https://al-bot.app",
         "X-Title": "Al-BOT"
       },
-      body: JSON.stringify({
-        model: "meta-llama/llama-3.1-8b-instruct",
-        messages: [
-          { role: "user", content: userMessage }
-        ]
-      })
+      body: JSON.stringify(payload)
     });
 
     const data = await response.json();
 
-    console.log("🔴 OPENROUTER RESPONSE:", JSON.stringify(data, null, 2));
+    console.log("🔴 OPENROUTER RESPONSE:");
+    console.log(JSON.stringify(data, null, 2));
 
     let reply = "Nuk mora përgjigje nga AI.";
 
@@ -59,7 +68,10 @@ app.post("/api/chat", async (req, res) => {
 
   } catch (err) {
     console.log("❌ SERVER ERROR:", err);
-    res.status(500).json({ reply: "Server error" });
+
+    res.status(500).json({
+      reply: "Server error: " + err.message
+    });
   }
 });
 
@@ -67,5 +79,5 @@ app.post("/api/chat", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 Server running on port " + PORT);
+  console.log("🚀 Running on port:", PORT);
 });
