@@ -1,30 +1,87 @@
-.app{
-display:flex;
-height:90vh;
+body{
+margin:0;
+font-family:Arial;
+background:#07142a;
+color:white;
 }
 
-/* TOPBAR FIX */
+/* LOGIN */
+.loginScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#07142a;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.loginScreen .box{
+background:#0b1d3a;
+padding:30px;
+text-align:center;
+border-radius:10px;
+}
+
+.loginScreen button{
+margin:10px;
+padding:10px 20px;
+background:#2d6cdf;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+/* TOPBAR */
 .topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:10px;
 background:#0b1d3a;
+color:white;
 }
 
-.newchatTop{
-background:#2d6cdf;
-color:white;
-border:none;
-padding:8px 12px;
-cursor:pointer;
+/* LOGO FIX */
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:40px;
+height:40px;
+object-fit:cover;
+}
+
+/* APP LAYOUT */
+.app{
+display:flex;
+height:90vh;
 }
 
 /* SIDEBAR */
 .sidebar{
-width:200px;
+width:220px;
 background:#08162e;
 padding:10px;
+color:white;
+}
+
+.sidebar h3{
+color:white;
+}
+
+#history div{
+padding:8px;
+background:#122a4d;
+margin-bottom:5px;
+cursor:pointer;
+color:white;
 }
 
 /* CHAT */
@@ -32,12 +89,35 @@ padding:10px;
 flex:1;
 display:flex;
 flex-direction:column;
+background:#07142a;
+color:white;
 }
 
 .messages{
 flex:1;
 overflow:auto;
 padding:10px;
+color:white;
+}
+
+/* MSG FIX */
+.msg{
+padding:10px;
+margin:5px;
+border-radius:10px;
+max-width:70%;
+color:white;
+}
+
+.user{
+background:#2d6cdf;
+margin-left:auto;
+color:white;
+}
+
+.ai{
+background:#122a4d;
+color:white;
 }
 
 /* INPUT */
@@ -49,18 +129,48 @@ padding:10px;
 .inputBox input{
 flex:1;
 padding:10px;
+background:white;
+color:black;
+border:none;
+}
+
+.inputBox button{
+background:#2d6cdf;
+color:white;
+border:none;
+padding:10px;
 }
 
 /* MODULES */
 .modules{
-width:200px;
+width:220px;
 background:#08162e;
 padding:10px;
+color:white;
 }
 
 .card{
 background:#122a4d;
 padding:10px;
-margin:10px 0;
+margin-bottom:10px;
 cursor:pointer;
+color:white;
+}
+
+/* NEW CHAT BUTTON */
+.newchatTop{
+background:#2d6cdf;
+color:white;
+border:none;
+padding:8px 12px;
+cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+padding:10px;
+background:#0b1d3a;
+color:white;
+font-size:12px;
 }
