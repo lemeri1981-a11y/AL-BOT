@@ -12,36 +12,32 @@
 <button onclick="send()">Dërgo</button>
 
 <script>
-const input = document.getElementById("input");
-
 async function send() {
+  const input = document.getElementById("input");
   const text = input.value.trim();
+
   if (!text) return;
 
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: text })
-    });
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
+      message:text
+    })
+  });
 
-    const data = await res.json();
+  const data = await res.json();
 
-    document.getElementById("messages").innerHTML +=
-      "<p>" + data.reply + "</p>";
+  document.getElementById("messages").innerHTML +=
+    "<p>"+data.reply+"</p>";
 
-    input.value = "";
-
-  } catch (err) {
-    document.getElementById("messages").innerHTML +=
-      "<p>Gabim në server</p>";
-  }
+  input.value="";
 }
 
-// 🔥 ENTER FUNKSIONAL (SAFE)
-input.addEventListener("keydown", function(e) {
+// 🔥 ENTER = SEND (SHTESË VETËM KJO)
+document.getElementById("input").addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     send();
   }
