@@ -2,60 +2,50 @@
 <html lang="sq">
 <head>
 <meta charset="UTF-8">
-<title>AI-BOT</title>
+<title>AI-BOT MODERN</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen" class="loginScreen">
-  <div class="loginBox">
-    <h1>AI-BOT</h1>
-    <p>Zgjidh gjuhën</p>
-    <button onclick="enterApp()">🇦🇱 Shqip</button>
-    <button onclick="enterApp()">🇬🇧 English</button>
-  </div>
-</div>
-
 <!-- HEADER -->
-<div class="header">
-  <div class="logo">
-    <img src="logo.png" alt="AI-BOT Logo">
-    <span>AI-BOT</span>
-  </div>
-  <div class="actions">
-    <button onclick="newChat()">+ New Chat</button>
+<header class="header">
+  <div class="logo">AI-BOT</div>
+  <div class="login">
     <button>Login</button>
   </div>
-</div>
+</header>
 
 <!-- MAIN LAYOUT -->
-<div class="layout">
+<div class="main-layout">
 
   <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h3>Chats</h3>
-    <div id="history"></div>
-  </div>
+  <aside class="sidebar">
+    <h3>History</h3>
+    <div id="history">
+      <div>Chat 1</div>
+      <div>Chat 2</div>
+      <div>Chat 3</div>
+    </div>
+    <button onclick="newChat()">+ New Chat</button>
+  </aside>
 
   <!-- CHAT AREA -->
-  <div class="chat">
+  <section class="chat">
     <div id="messages" class="messages"></div>
-    <div class="inputArea">
+    <div class="input-area">
       <input id="input" placeholder="Shkruaj mesazh..." />
-      <button onclick="send()">➤</button>
+      <button onclick="send()">Send</button>
     </div>
-  </div>
+  </section>
 
   <!-- MODULES -->
-  <div class="modules">
-    <div class="card">🌍 Përkthime</div>
-    <div class="card">📰 Lajme</div>
-    <div class="card">📱 Sociale</div>
-    <div class="card">📄 Përmbledhje</div>
-    <div class="card">👤 Asistent</div>
-  </div>
+  <aside class="modules">
+    <div class="module">🌍 Përkthime</div>
+    <div class="module">📰 Lajme</div>
+    <div class="module">📱 Sociale</div>
+    <div class="module">📄 Përmbledhje</div>
+    <div class="module">👤 Asistent</div>
+  </aside>
 
 </div>
 
