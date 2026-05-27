@@ -15,31 +15,30 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// 🔥 DEBUG STARTUP
+// 🔥 START LOGS
 console.log("🚀 Server starting...");
 console.log("🔑 OPENROUTER KEY EXISTS:", !!process.env.OPENROUTER_API_KEY);
-console.log("🔑 KEY PREVIEW:", process.env.OPENROUTER_API_KEY?.slice(0, 8));
+console.log("🔑 KEY PREVIEW:", process.env.OPENROUTER_API_KEY?.slice(0, 10));
 
 // 🔥 CHAT API
 app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
 
+    // ❌ CHECK KEY
     if (!process.env.OPENROUTER_API_KEY) {
       return res.status(500).json({
-        reply: "❌ OPENROUTER_API_KEY mungon në Railway Variables"
+        reply: "OPENROUTER_API_KEY mungon në Railway Variables"
       });
     }
 
-    const payload = {
-      model: "openai/gpt-3.5-turbo",
-      messages: [
-        { role: "user", content: userMessage }
-      ]
+    // 🔥 SYSTEM PROMPT (AUTO LANGUAGE)
+    const systemPrompt = {
+      role: "system",
+      content: "Ti je një asistent inteligjent shumëgjuhësh. Zbulo automatikisht gjuhën e përdoruesit dhe përgjigju në të njëjtën gjuhë. Nëse përdoruesi shkruan shqip, përgjigju shqip; nëse shkruan anglisht, përgjigju anglisht; nëse përdor gjuhë tjetër, përdor atë gjuhë. Ji i qartë, natyral dhe i saktë."
     };
 
-    console.log("📩 Sending request to OpenRouter...");
-
+    // 🔥 REQUEST TO OPENROUTER
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -48,7 +47,16 @@ app.post("/api/chat", async (req, res) => {
         "HTTP-Referer": "https://al-bot.app",
         "X-Title": "Al-BOT"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        model: "openai/gpt-3.5-turbo",
+        messages: [
+          systemPrompt,
+          {
+            role: "user",
+            content: userMessage
+          }
+        ]
+      })
     });
 
     const data = await response.json();
@@ -56,6 +64,7 @@ app.post("/api/chat", async (req, res) => {
     console.log("🔴 OPENROUTER RESPONSE:");
     console.log(JSON.stringify(data, null, 2));
 
+    // 🔥 SAFE RESPONSE
     let reply = "Nuk mora përgjigje nga AI.";
 
     if (data?.choices?.[0]?.message?.content) {
