@@ -3,7 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Al-BOT</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0b1d3a;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+/* messages */
+#messages {
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+#messages p {
+  background: #1f3b73;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+  word-wrap: break-word;
+}
+
+/* input */
+input {
+  width: 70%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 10px 15px;
+  background: #2d6cdf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
 </head>
+
 <body>
 
 <div id="messages"></div>
@@ -18,25 +61,31 @@ async function send() {
 
   if (!text) return;
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-      message:text
-    })
-  });
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: text
+      })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  document.getElementById("messages").innerHTML +=
-    "<p>"+data.reply+"</p>";
+    document.getElementById("messages").innerHTML +=
+      "<p>" + data.reply + "</p>";
 
-  input.value="";
+  } catch (err) {
+    document.getElementById("messages").innerHTML +=
+      "<p style='background:red'>Gabim në server</p>";
+  }
+
+  input.value = "";
 }
 
-// 🔥 ENTER = SEND (SHTESË VETËM KJO)
+// 🔥 ENTER FUNKSION
 document.getElementById("input").addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     send();
