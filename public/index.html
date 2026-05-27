@@ -8,6 +8,7 @@
 
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen" class="loginScreen">
   <div class="box">
     <h1>AI-BOT</h1>
@@ -19,26 +20,46 @@
   </div>
 </div>
 
+<!-- TOP HEADER -->
 <div class="topbar">
   <div class="logo">
     <img src="logo.png">
     <span>AI-BOT</span>
   </div>
+
+  <button class="newchatTop" onclick="newChat()">+ New Chat</button>
 </div>
 
-<div class="container">
+<!-- MAIN APP -->
+<div class="app">
+
+  <!-- SIDEBAR (HISTORY) -->
   <div class="sidebar">
-    <button onclick="newChat()">+ New Chat</button>
+    <h3>Chats</h3>
     <div id="history"></div>
   </div>
 
+  <!-- CHAT AREA -->
   <div class="chat">
-    <div id="messages"></div>
+
+    <div id="messages" class="messages"></div>
+
     <div class="inputBox">
-      <input id="input" placeholder="Shkruaj..." />
-      <button onclick="send()">Dërgo</button>
+      <input id="input" placeholder="Shkruaj mesazh..." />
+      <button onclick="send()">➤</button>
     </div>
+
   </div>
+
+  <!-- RIGHT MODULES -->
+  <div class="modules">
+    <div class="card">🌍 Përkthime</div>
+    <div class="card">📰 Lajme</div>
+    <div class="card">📱 Sociale</div>
+    <div class="card">📄 Përmbledhje</div>
+    <div class="card">👤 Asistent</div>
+  </div>
+
 </div>
 
 <script src="app.js"></script>
