@@ -1,21 +1,27 @@
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const path = require("path");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// 🔥 START LOG
-console.log("🔥 server.js STARTED");
+// 🔥 SERVE FRONTEND (index.html nga /public)
+app.use(express.static("public"));
 
-// 📩 CHAT ENDPOINT
+// 🔥 HOME ROUTE (siguri shtesë)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// 🔥 CHAT API
 app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
 
-    console.log("📩 Incoming message:", userMessage);
+    console.log("📩 Message:", userMessage);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -33,8 +39,6 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
-    console.log("🤖 Response received from OpenRouter");
-
     const reply =
       data?.choices?.[0]?.message?.content ||
       "Nuk mora përgjigje nga AI.";
@@ -47,13 +51,9 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-
-// 🚀 RAILWAY PORT (CORRECT WAY)
+// 🔥 PORT RAILWAY
 const PORT = process.env.PORT;
 
-console.log("🚀 About to listen on port:", PORT);
-
-// 🌐 IMPORTANT: bind 0.0.0.0 for Railway
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("✅ Server running on port " + PORT);
+  console.log("🚀 Server running on port " + PORT);
 });
