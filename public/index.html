@@ -10,48 +10,49 @@
 
 <!-- LOGIN -->
 <div id="loginScreen" class="loginScreen">
-  <div class="box">
+  <div class="loginBox">
     <h1>AI-BOT</h1>
-    <p id="langText">Zgjidh gjuhën</p>
-    <button onclick="setLang('sq')">🇦🇱 Shqip</button>
-    <button onclick="setLang('en')">🇬🇧 English</button>
-    <br><br>
-    <button onclick="enterApp()">LOGIN</button>
+    <p>Zgjidh gjuhën</p>
+    <button onclick="enterApp()">🇦🇱 Shqip</button>
+    <button onclick="enterApp()">🇬🇧 English</button>
   </div>
 </div>
 
-<!-- TOP HEADER -->
-<div class="topbar">
+<!-- HEADER -->
+<div class="header">
   <div class="logo">
     <img src="logo.png">
     <span>AI-BOT</span>
   </div>
 
-  <button class="newchatTop" onclick="newChat()">+ New Chat</button>
+  <div class="actions">
+    <button onclick="newChat()">+ New Chat</button>
+    <button>Login</button>
+  </div>
 </div>
 
-<!-- MAIN APP -->
-<div class="app">
+<!-- MAIN -->
+<div class="layout">
 
-  <!-- SIDEBAR (HISTORY) -->
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <h3>Chats</h3>
     <div id="history"></div>
   </div>
 
-  <!-- CHAT AREA -->
+  <!-- CHAT -->
   <div class="chat">
 
     <div id="messages" class="messages"></div>
 
-    <div class="inputBox">
+    <div class="inputArea">
       <input id="input" placeholder="Shkruaj mesazh..." />
       <button onclick="send()">➤</button>
     </div>
 
   </div>
 
-  <!-- RIGHT MODULES -->
+  <!-- MODULES -->
   <div class="modules">
     <div class="card">🌍 Përkthime</div>
     <div class="card">📰 Lajme</div>
