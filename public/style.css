@@ -1,51 +1,47 @@
 body{
 margin:0;
 font-family:Arial;
-background:#07142a;
+background:#0b1220;
 color:white;
 }
 
 /* LOGIN */
 .loginScreen{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#07142a;
+inset:0;
+background:#0b1220;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 z-index:9999;
 }
 
-.loginScreen .box{
-background:#0b1d3a;
+.loginBox{
+background:#111a2e;
 padding:30px;
+border-radius:12px;
 text-align:center;
-border-radius:10px;
 }
 
-.loginScreen button{
-margin:10px;
-padding:10px 20px;
+.loginBox button{
+margin:5px;
+padding:10px 15px;
 background:#2d6cdf;
 border:none;
 color:white;
 cursor:pointer;
+border-radius:6px;
 }
 
-/* TOPBAR */
-.topbar{
+/* HEADER */
+.header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:10px;
-background:#0b1d3a;
-color:white;
+padding:10px 20px;
+background:#111a2e;
 }
 
-/* LOGO FIX */
 .logo{
 display:flex;
 align-items:center;
@@ -55,11 +51,20 @@ gap:10px;
 .logo img{
 width:40px;
 height:40px;
-object-fit:cover;
 }
 
-/* APP LAYOUT */
-.app{
+.actions button{
+margin-left:10px;
+background:#2d6cdf;
+border:none;
+padding:8px 12px;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LAYOUT */
+.layout{
 display:flex;
 height:90vh;
 }
@@ -67,21 +72,16 @@ height:90vh;
 /* SIDEBAR */
 .sidebar{
 width:220px;
-background:#08162e;
+background:#0f172a;
 padding:10px;
-color:white;
-}
-
-.sidebar h3{
-color:white;
 }
 
 #history div{
 padding:8px;
-background:#122a4d;
-margin-bottom:5px;
+margin:5px 0;
+background:#1e293b;
+border-radius:6px;
 cursor:pointer;
-color:white;
 }
 
 /* CHAT */
@@ -89,88 +89,66 @@ color:white;
 flex:1;
 display:flex;
 flex-direction:column;
-background:#07142a;
-color:white;
+background:#0b1220;
 }
 
 .messages{
 flex:1;
-overflow:auto;
 padding:10px;
-color:white;
+overflow:auto;
 }
 
-/* MSG FIX */
 .msg{
 padding:10px;
 margin:5px;
 border-radius:10px;
 max-width:70%;
-color:white;
 }
 
 .user{
 background:#2d6cdf;
 margin-left:auto;
-color:white;
 }
 
 .ai{
-background:#122a4d;
-color:white;
+background:#1e293b;
 }
 
 /* INPUT */
-.inputBox{
+.inputArea{
 display:flex;
 padding:10px;
+background:#111a2e;
 }
 
-.inputBox input{
+.inputArea input{
 flex:1;
 padding:10px;
-background:white;
-color:black;
 border:none;
+border-radius:6px;
 }
 
-.inputBox button{
+.inputArea button{
+margin-left:10px;
 background:#2d6cdf;
-color:white;
 border:none;
-padding:10px;
+color:white;
+padding:10px 15px;
+border-radius:6px;
+cursor:pointer;
 }
 
 /* MODULES */
 .modules{
 width:220px;
-background:#08162e;
+background:#0f172a;
 padding:10px;
-color:white;
 }
 
 .card{
-background:#122a4d;
+background:#1e293b;
 padding:10px;
 margin-bottom:10px;
+border-radius:8px;
 cursor:pointer;
-color:white;
-}
-
-/* NEW CHAT BUTTON */
-.newchatTop{
-background:#2d6cdf;
-color:white;
-border:none;
-padding:8px 12px;
-cursor:pointer;
-}
-
-/* FOOTER */
-.footer{
-text-align:center;
-padding:10px;
-background:#0b1d3a;
-color:white;
-font-size:12px;
 }
