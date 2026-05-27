@@ -8,19 +8,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔥 SERVE FRONTEND
+// 🔥 FRONTEND
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// 🔥 CHAT API
+// 🔥 CHAT API (SUPER SIMPLE)
 app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
 
-    console.log("📩 USER MESSAGE:", userMessage);
+    console.log("📩 USER:", userMessage);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -29,7 +29,9 @@ app.post("/api/chat", async (req, res) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
+        // 🔥 MODEL I FIKSUAR (NUK E PREK MË)
         model: "meta-llama/llama-3.1-8b-instruct:free",
+
         messages: [
           { role: "user", content: userMessage }
         ]
@@ -38,27 +40,22 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
-    // 🔥 DEBUG - KRITIK
-    console.log("🔴 OPENROUTER RAW RESPONSE:");
-    console.log(JSON.stringify(data, null, 2));
+    console.log("🤖 RESPONSE:", JSON.stringify(data));
 
-    let reply = "Nuk mora përgjigje nga AI.";
-
-    if (data?.choices?.[0]?.message?.content) {
-      reply = data.choices[0].message.content;
-    } else if (data?.error?.message) {
-      reply = "ERROR: " + data.error.message;
-    }
+    const reply =
+      data?.choices?.[0]?.message?.content ||
+      data?.error?.message ||
+      "Nuk mora përgjigje nga AI.";
 
     res.json({ reply });
 
   } catch (err) {
-    console.log("❌ SERVER ERROR:", err);
+    console.log("❌ ERROR:", err);
     res.status(500).json({ reply: "Server error" });
   }
 });
 
-// 🔥 PORT (RAILWAY SAFE)
+// 🔥 PORT (RAILWAY)
 const PORT = process.env.PORT;
 
 app.listen(PORT, "0.0.0.0", () => {
