@@ -6,7 +6,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// CHAT ENDPOINT
 app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -19,19 +18,15 @@ app.post("/api/chat", async (req, res) => {
       },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo",
-        messages: [
-          { role: "user", content: userMessage }
-        ]
+        messages: [{ role: "user", content: userMessage }]
       })
     });
 
     const data = await response.json();
 
-    const reply =
-      data?.choices?.[0]?.message?.content ||
-      "Nuk mora përgjigje nga AI.";
-
-    res.json({ reply });
+    res.json({
+      reply: data?.choices?.[0]?.message?.content || "No response"
+    });
 
   } catch (err) {
     console.log(err);
@@ -39,9 +34,9 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// PORT (SHUMË E RËNDËSISHME PËR RAILWAY)
-const PORT = process.env.PORT || 3000;
+// 🔥 KRITIKE PËR RAILWAY
+const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log("Server running on port " + PORT);
 });
