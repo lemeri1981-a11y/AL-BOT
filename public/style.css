@@ -1,52 +1,49 @@
-body{
-margin:0;
-font-family:Arial;
-background:#07142a;
-color:white;
-}
-
-.loginScreen{
-position:fixed;
-width:100%;
-height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#07142a;
-z-index:9999;
-}
-
-.box{
-background:#0b1d3a;
-padding:30px;
-text-align:center;
-}
-
-.container{
+.app{
 display:flex;
 height:90vh;
 }
 
+/* TOPBAR FIX */
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
+background:#0b1d3a;
+}
+
+.newchatTop{
+background:#2d6cdf;
+color:white;
+border:none;
+padding:8px 12px;
+cursor:pointer;
+}
+
+/* SIDEBAR */
 .sidebar{
 width:200px;
 background:#08162e;
 padding:10px;
 }
 
+/* CHAT */
 .chat{
 flex:1;
 display:flex;
 flex-direction:column;
 }
 
-#messages{
+.messages{
 flex:1;
-padding:10px;
 overflow:auto;
+padding:10px;
 }
 
+/* INPUT */
 .inputBox{
 display:flex;
+padding:10px;
 }
 
 .inputBox input{
@@ -54,18 +51,16 @@ flex:1;
 padding:10px;
 }
 
-.inputBox button{
+/* MODULES */
+.modules{
+width:200px;
+background:#08162e;
 padding:10px;
-background:#2d6cdf;
-color:white;
-border:none;
 }
 
-.msg{
-padding:8px;
-margin:5px;
-border-radius:8px;
+.card{
+background:#122a4d;
+padding:10px;
+margin:10px 0;
+cursor:pointer;
 }
-
-.user{background:#2d6cdf;margin-left:auto;}
-.ai{background:#122a4d;}
