@@ -7,10 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔥 DEBUG START
+// 🔥 START LOG
 console.log("🔥 server.js STARTED");
 
-// CHAT ENDPOINT
+// 📩 CHAT ENDPOINT
 app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -33,7 +33,7 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
-    console.log("🤖 OpenRouter response received");
+    console.log("🤖 Response received from OpenRouter");
 
     const reply =
       data?.choices?.[0]?.message?.content ||
@@ -47,11 +47,13 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// 🔥 PORT (RAILWAY SAFE)
-const PORT = process.env.PORT || 3000;
+
+// 🚀 RAILWAY PORT (CORRECT WAY)
+const PORT = process.env.PORT;
 
 console.log("🚀 About to listen on port:", PORT);
 
+// 🌐 IMPORTANT: bind 0.0.0.0 for Railway
 app.listen(PORT, "0.0.0.0", () => {
   console.log("✅ Server running on port " + PORT);
 });
