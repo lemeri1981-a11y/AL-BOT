@@ -1,129 +1,154 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Al-BOT</title>
 
 <style>
 body {
   margin: 0;
   font-family: Arial;
-  background: #0a0f1c;
   display: flex;
   height: 100vh;
 }
 
-.sidebar {
-  width: 220px;
-  background: #0f1b33;
+/* SIDEBAR */
+#sidebar {
+  width: 250px;
+  background: #111;
   color: white;
-  padding: 15px;
+  padding: 10px;
+  overflow-y: auto;
 }
 
-.chat {
+.chat-item {
+  padding: 10px;
+  background: #222;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+/* MAIN CHAT */
+#main {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.messages {
+#chatBox {
   flex: 1;
-  padding: 20px;
+  padding: 10px;
   overflow-y: auto;
 }
 
-.msg {
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 10px;
-  max-width: 70%;
-}
+.user { color: blue; }
+.ai { color: green; }
 
-.user {
-  background: #2b6fff;
-  color: white;
-  margin-left: auto;
-}
-
-.bot {
-  background: #1b2a4a;
-  color: white;
-}
-
-.input {
+#inputBox {
   display: flex;
-  padding: 10px;
-  background: #0f1b33;
 }
 
 input {
   flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
+  padding: 10px;
 }
 
 button {
-  margin-left: 10px;
-  padding: 12px 16px;
-  border: none;
-  background: #2b6fff;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="sidebar">
-  <h3>🔵 Al-BOT</h3>
+<div id="sidebar">
+  <button onclick="newChat()">+ New Chat</button>
+  <div id="chatList"></div>
 </div>
 
-<div class="chat">
+<div id="main">
+  <div id="chatBox"></div>
 
-<div class="messages" id="messages"></div>
-
-<div class="input">
-  <input id="input" placeholder="Shkruaj..." />
-  <button onclick="send()">Dërgo</button>
-</div>
-
+  <div id="inputBox">
+    <input id="msg" placeholder="Shkruaj...">
+    <button onclick="send()">Send</button>
+  </div>
 </div>
 
 <script>
-async function send() {
-  const input = document.getElementById("input");
+let chats = JSON.parse(localStorage.getItem("chats")) || {};
+let currentChat = null;
+
+function newChat() {
+  currentChat = "chat_" + Date.now();
+  chats[currentChat] = [];
+  save();
+  renderChats();
+  renderChat();
+}
+
+function selectChat(id) {
+  currentChat = id;
+  renderChat();
+}
+
+function send() {
+  const input = document.getElementById("msg");
   const text = input.value;
   if (!text) return;
 
-  add(text, "user");
-  input.value = "";
+  if (!currentChat) newChat();
 
-  const res = await fetch("/api/chat", {
+  chats[currentChat].push({ role: "user", text });
+  renderChat();
+
+  fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: text })
+  })
+  .then(r => r.json())
+  .then(data => {
+    chats[currentChat].push({ role: "ai", text: data.reply });
+    renderChat();
+    save();
   });
 
-  const data = await res.json();
-  add(data.reply, "bot");
+  input.value = "";
 }
 
-function add(text, type) {
-  const div = document.createElement("div");
-  div.className = "msg " + type;
-  div.innerText = text;
+function renderChat() {
+  const box = document.getElementById("chatBox");
+  box.innerHTML = "";
 
-  document.getElementById("messages").appendChild(div);
-  document.getElementById("messages").scrollTop = 999999;
+  if (!currentChat) return;
+
+  chats[currentChat].forEach(m => {
+    const div = document.createElement("div");
+    div.className = m.role;
+    div.innerText = (m.role === "user" ? "You: " : "AI: ") + m.text;
+    box.appendChild(div);
+  });
 }
 
-document.getElementById("input").addEventListener("keydown", e => {
-  if (e.key === "Enter") send();
-});
+function renderChats() {
+  const list = document.getElementById("chatList");
+  list.innerHTML = "";
+
+  Object.keys(chats).forEach(id => {
+    const div = document.createElement("div");
+    div.className = "chat-item";
+    div.innerText = id;
+    div.onclick = () => selectChat(id);
+    list.appendChild(div);
+  });
+}
+
+function save() {
+  localStorage.setItem("chats", JSON.stringify(chats));
+}
+
+renderChats();
 </script>
 
 </body>
