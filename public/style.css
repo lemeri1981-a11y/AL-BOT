@@ -1,70 +1,187 @@
 body{
-margin:0;
-font-family:Arial;
-background:#0b1220;
-color:white;
+  margin:0;
+  font-family:Inter, Arial;
+  background:#0b1220;
+  color:white;
 }
 
+/* LOGIN SCREEN */
 .loginScreen{
-position:fixed;
-inset:0;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#0b1220;
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#0b1220,#0f1b33);
+  z-index:9999;
 }
 
 .loginBox{
-background:#111a2e;
-padding:30px;
-border-radius:10px;
+  background:#111a2e;
+  padding:30px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
+.loginBox button{
+  margin:5px;
+  padding:10px 18px;
+  background:#2d6cdf;
+  border:none;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.loginBox button:hover{
+  background:#1a4fa1;
+}
+
+/* HEADER */
 .header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-height:60px;
-padding:0 20px;
-background:#111a2e;
+  height:60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 20px;
+  background:#111a2e;
+  border-bottom:1px solid #1f2a44;
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo img{
+  width:40px;
+  height:40px;
+  border-radius:8px;
+}
+
+.actions button{
+  margin-left:10px;
+  background:#2d6cdf;
+  border:none;
+  padding:8px 12px;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.actions button:hover{
+  background:#1a4fa1;
+}
+
+/* LAYOUT GRID */
 .layout{
-display:grid;
-grid-template-columns:220px 1fr 220px;
-height:calc(100vh - 60px);
+  display:grid;
+  grid-template-columns:240px 1fr 240px;
+  height:calc(100vh - 60px);
 }
 
-.sidebar,.modules{
-background:#0f172a;
-padding:10px;
+/* SIDEBAR */
+.sidebar{
+  background:#0f172a;
+  padding:12px;
+  overflow-y:auto;
 }
 
+#history div{
+  background:#16233d;
+  padding:10px;
+  margin:6px 0;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+#history div:hover{
+  background:#1f335a;
+}
+
+/* CHAT AREA */
 .chat{
-display:flex;
-flex-direction:column;
+  display:flex;
+  flex-direction:column;
+  background:#0b1220;
 }
 
 .messages{
-flex:1;
-padding:10px;
-overflow:auto;
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
 }
 
+.msg{
+  padding:10px;
+  margin:6px;
+  border-radius:12px;
+  max-width:70%;
+}
+
+.user{
+  background:#2d6cdf;
+  margin-left:auto;
+}
+
+.ai{
+  background:#16233d;
+}
+
+/* INPUT */
 .inputArea{
-display:flex;
-padding:10px;
-background:#111a2e;
+  display:flex;
+  padding:10px;
+  background:#111a2e;
+  border-top:1px solid #1f2a44;
 }
 
 .inputArea input{
-flex:1;
-padding:10px;
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+}
+
+.inputArea button{
+  margin-left:10px;
+  background:#2d6cdf;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.inputArea button:hover{
+  background:#1a4fa1;
+}
+
+/* MODULES */
+.modules{
+  background:#0f172a;
+  padding:12px;
+  overflow-y:auto;
 }
 
 .card{
-background:#16233d;
-padding:10px;
-margin:5px 0;
-border-radius:8px;
+  background:#16233d;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.card:hover{
+  background:#1f335a;
 }
