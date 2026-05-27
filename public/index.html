@@ -12,38 +12,40 @@
 <button onclick="send()">Dërgo</button>
 
 <script>
-async function send() {
-  const input = document.getElementById("input");
-  const text = input.value.trim();
+const input = document.getElementById("input");
 
+async function send() {
+  const text = input.value.trim();
   if (!text) return;
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: text
-    })
-  });
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: text })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  document.getElementById("messages").innerHTML +=
-    "<p>" + data.reply + "</p>";
+    document.getElementById("messages").innerHTML +=
+      "<p>" + data.reply + "</p>";
 
-  input.value = "";
-}
+    input.value = "";
 
-function handleEnter(event) {
-  if (event.key === "Enter") {
-    send();
+  } catch (err) {
+    document.getElementById("messages").innerHTML +=
+      "<p>Gabim në server</p>";
   }
 }
 
-// 🔥 KJO E BËN ENTER TË FUNKSIONOJË
-document.getElementById("input").addEventListener("keydown", handleEnter);
+// 🔥 ENTER FUNKSIONAL (SAFE)
+input.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    send();
+  }
+});
 </script>
 
 </body>
