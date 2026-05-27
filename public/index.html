@@ -1,1 +1,46 @@
-// placeholder
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>AI-BOT</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loginScreen" class="loginScreen">
+  <div class="box">
+    <h1>AI-BOT</h1>
+    <p id="langText">Zgjidh gjuhën</p>
+    <button onclick="setLang('sq')">🇦🇱 Shqip</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
+    <br><br>
+    <button onclick="enterApp()">LOGIN</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="logo">
+    <img src="logo.png">
+    <span>AI-BOT</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="sidebar">
+    <button onclick="newChat()">+ New Chat</button>
+    <div id="history"></div>
+  </div>
+
+  <div class="chat">
+    <div id="messages"></div>
+    <div class="inputBox">
+      <input id="input" placeholder="Shkruaj..." />
+      <button onclick="send()">Dërgo</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
