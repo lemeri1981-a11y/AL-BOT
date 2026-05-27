@@ -20,7 +20,7 @@ app.post("/api/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
 
-    console.log("📩 USER:", userMessage);
+    console.log("📩 USER MESSAGE:", userMessage);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -38,18 +38,22 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
-    // 🔥 LOG REAL RESPONSE (vetëm për kontroll)
-    console.log("🤖 OPENROUTER RESPONSE:", JSON.stringify(data));
+    // 🔥 DEBUG - KRITIK
+    console.log("🔴 OPENROUTER RAW RESPONSE:");
+    console.log(JSON.stringify(data, null, 2));
 
-    const reply =
-      data?.choices?.[0]?.message?.content ||
-      data?.error?.message ||
-      "Nuk mora përgjigje nga AI.";
+    let reply = "Nuk mora përgjigje nga AI.";
+
+    if (data?.choices?.[0]?.message?.content) {
+      reply = data.choices[0].message.content;
+    } else if (data?.error?.message) {
+      reply = "ERROR: " + data.error.message;
+    }
 
     res.json({ reply });
 
   } catch (err) {
-    console.log("❌ ERROR:", err);
+    console.log("❌ SERVER ERROR:", err);
     res.status(500).json({ reply: "Server error" });
   }
 });
